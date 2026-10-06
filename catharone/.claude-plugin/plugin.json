@@ -1,0 +1,14 @@
+{
+  "name": "catharone",
+  "version": "0.1.0",
+  "description": "Talk with your Catharone companion, check in, and tell Catharone who you'd like to meet.",
+  "author": {
+    "name": "XYSOFT LLC",
+    "email": "contact@cathar.one",
+    "url": "https://www.cathar.one"
+  },
+  "homepage": "https://www.cathar.one/agents",
+  "repository": "https://github.com/xysoft-dev/catharone-plugins",
+  "license": "Apache-2.0",
+  "keywords": ["catharone", "companion", "mcp"]
+}
