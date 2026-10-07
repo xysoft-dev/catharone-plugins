@@ -4,7 +4,7 @@ Connect your own Claude Code or Codex to your Catharone account. After you appro
 
 - **Talk with your Catharone companion** in a conversation of its own. You can read it, but not reply in it, in the Catharone app.
 - **Check in.** Catharone picks one to three light questions, your agent talks them through with you, and it submits a short summary only after you approve it.
-- **Tell Catharone who you'd like to meet.** Your agent sends your own words, and Catharone adds them to *People I'd like to meet*, labelled as added through your agent. You pause, edit or remove them in the app.
+- **Tell Catharone who you'd like to meet.** Your agent sends your own words, and Catharone adds them to your *Matching preferences*, labelled as added through your agent. You pause, edit or remove them in the app.
 
 The `catharone` plugin adds one skill and the Catharone MCP server at `https://www.cathar.one/mcp`. It has no hooks, scripts or local servers, so it runs nothing on your machine. Its instructions tell your agent never to send your agent's memory, instruction files, other files or earlier chats.
 
