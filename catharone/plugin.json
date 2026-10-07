@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "catharone",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Talk with your Catharone companion, check in, and tell Catharone who you'd like to meet.",
   "author": {
     "name": "XYSOFT LLC",

@@ -40,7 +40,7 @@ Catharone is the user's companion app. The `catharone_*` tools act on the user's
 2. Call `catharone_submit_connection_request` with their exact words (no paraphrase, summary or added detail) and a new `requestId`.
 3. While the status is `processing`, wait a few seconds, then check with `catharone_connection_request_status`.
 4. Report the outcome:
-   - `active`: added to People I'd like to meet in Catharone, labelled as added through this agent.
+   - `active`: added to the user's Matching preferences in Catharone, labelled as added through this agent.
    - `needs_clarification`: added but on hold; the user finishes it in the Catharone app.
    - `paused` or `removed`: the user changed it in the app. Never resubmit to undo that.
    - `unclear`: nothing was added, because Catharone couldn't tell what the user meant. Ask them to rephrase, then submit with a new `requestId`.
