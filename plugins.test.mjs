@@ -75,7 +75,7 @@ test('the skill never loads implicitly and names only implemented tools', () => 
     'policy:\n  allow_implicit_invocation: false\n',
   );
   const named = new Set(skill.match(/\bcatharone_[a-z_]+\b/g));
-  assert.equal(named.size, 8);
+  assert.equal(named.size, 9);
   // The backend is not exported with the packages. Inside the monorepo a moved
   // server file must fail here rather than silently skip the comparison.
   const backend = join(root, '../supabase');
@@ -99,4 +99,9 @@ test('published files hold no credentials, private links, scripts or hooks', () 
       path,
     );
   }
+});
+
+test('skill preflight declares exactly the packaged version for both hosts', () => {
+  const version = json('catharone/plugin.json').version;
+  assert.ok(read('catharone/skills/catharone/SKILL.md').includes(`pluginVersion: "${version}"`));
 });

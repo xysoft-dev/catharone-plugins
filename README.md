@@ -53,13 +53,27 @@ Uninstalling the plugin does not revoke access, and your agent may keep its stor
 - **Claude Code:** auto-update is off by default for third-party marketplaces. Run `claude plugin marketplace update catharone`, then `claude plugin update catharone@catharone`, and restart Claude Code. Or turn on auto-update for the `catharone` marketplace in `/plugin`.
 - **Codex:** run `codex plugin marketplace upgrade catharone`, then `codex plugin add catharone@catharone` to install the new version, and start a new session.
 
+Plugin versions with `catharone_client_status` check public release metadata before
+starting a requested task. They identify only the plugin version, not host files,
+conversations or memory. Optional updates allow the task to continue; a required
+update stops new work until the host reloads the updated skill. An unavailable
+check never claims the installed version is current. This is a cooperative skill
+check, not a security boundary: older packages lack it, and the MCP transport
+identifies the host rather than the installed plugin. Existing tool inputs remain
+compatible. The status tool still uses the existing account authorization.
+
+[App and plugin update help](https://www.cathar.one/updates) covers store and host
+recovery. Updating never requires deleting the app, revoking access, or replaying
+writes with new request IDs. The host controls downloading and activating plugin
+updates; Catharone does not run an updater on the user's machine.
+
 ## Transcripts and memories
 
 Your agent can keep Catharone replies, including personal context: both hosts save session transcripts on your machine, Claude Code's auto memory can save details from a session, and Codex memories can keep replies. To keep Catharone replies out of Codex memories, set `disable_on_external_context = true` under `[memories]` in your Codex `config.toml`.
 
 ## Releasing
 
-These packages are exported from Catharone's private source repository, where changes land first through reviewed pull requests. An export replaces this repository's contents with the source's `plugins/` folder. One folder serves both hosts: Claude Code reads `catharone/.claude-plugin/plugin.json` and `.mcp.json`, and Codex reads the agent-plugins `catharone/plugin.json` and `mcp.json`. Both share one skill. A release bumps `version` in both manifests together and never reuses a version; the marketplace entries carry none. Before a release, run `node --test plugins.test.mjs`, `claude plugin validate --strict` on `catharone` and on the repository root, and validate `catharone/plugin.json` and `catharone/mcp.json` against their agent-plugins 1.0.0 `$schema`. The `Check` workflow runs the same steps on every pull request and on `main`.
+These packages are exported from Catharone's private source repository, where changes land first through reviewed pull requests. An export replaces this repository's contents with the source's `plugins/` folder. One folder serves both hosts: Claude Code reads `catharone/.claude-plugin/plugin.json` and `.mcp.json`, and Codex reads the agent-plugins `catharone/plugin.json` and `mcp.json`. Both share one skill. A release bumps `version` in both manifests together and never reuses a version; the marketplace entries carry none. Before a release, run `node --test plugins.test.mjs`, `claude plugin validate --strict` on `catharone` and on the repository root, and validate `catharone/plugin.json` and `catharone/mcp.json` against their agent-plugins 1.0.0 `$schema`. Run these validations locally before publication; deployment status is separate from package validation.
 
 ## License
 
