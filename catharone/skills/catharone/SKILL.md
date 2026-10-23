@@ -19,6 +19,28 @@ Catharone is the user's companion app. The `catharone_*` tools act on the user's
 - `ai_processing_consent_required`: the user must turn AI processing back on in the Catharone app.
 - `integration_rate_limited` or `quota_exceeded`: if `retryAfter` is a minute or less, wait that long and try once more. Otherwise tell the user when they can try again, and stop.
 
+## Version check
+
+This skill's plugin version is `0.1.2` (not the host or MCP protocol version).
+At the start of each user-requested Catharone task, call `catharone_client_status`
+with `pluginVersion: "0.1.2"`. Send no files, host metadata or account content.
+- `current`: continue the requested task.
+- `available`: mention the optional update once, then continue.
+- `required`: stop before starting new work and explain how to update below.
+- `unknown`, unavailable status tool, or `release_policy_unavailable`: report that
+  compatibility could not be confirmed; do not claim the plugin is current.
+  Existing tools may still be used for the user's requested task. Never retry a
+  write or reconnect an account merely to check a version.
+
+For Claude Code: `claude plugin marketplace update catharone`, then
+`claude plugin update catharone@catharone`, and restart Claude Code.
+For Codex: `codex plugin marketplace upgrade catharone`, then
+`codex plugin add catharone@catharone`, and start a new session.
+Offer these steps; do not install or update software without the user's request.
+A missing tool after update needs a new session; authentication errors use the
+sign-in steps above. Updating does not require disconnecting, deleting memories,
+or resending pending writes. Recover their outcomes with their original IDs.
+
 ## Check in
 
 1. Call `catharone_get_questions`.
