@@ -1,9 +1,0 @@
-{
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
-  "mcpServers": {
-    "catharone": {
-      "type": "streamable-http",
-      "url": "https://www.cathar.one/mcp"
-    }
-  }
-}

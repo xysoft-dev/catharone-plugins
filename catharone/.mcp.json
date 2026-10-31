@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "catharone": {
-      "type": "http",
-      "url": "https://www.cathar.one/mcp"
-    }
-  }
-}
