@@ -12,30 +12,14 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-
-      - name: Set up Node
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          package-manager-cache: false
-
-      - name: Run package tests
-        run: node --test plugins.test.mjs
-
-      - name: Validate with Claude Code
+      - name: Verify retired package
+        shell: bash
         run: |
-          npx --yes @anthropic-ai/claude-code@2.1.290 plugin validate --strict catharone
-          npx --yes @anthropic-ai/claude-code@2.1.290 plugin validate --strict .
-
-      - name: Validate against the agent-plugins schemas
-        run: |
-          for name in plugin mcp; do
-            url=$(node -p "require('./catharone/$name.json').\$schema")
-            curl -fsSL "$url" -o "$RUNNER_TEMP/$name.schema.json"
-            npx --yes ajv-cli@5.0.0 validate --spec=draft2020 \
-              -s "$RUNNER_TEMP/$name.schema.json" -d "catharone/$name.json"
+          test -s README.md
+          test -s LICENSE
+          for path in catharone .agents/plugins/marketplace.json .claude-plugin/marketplace.json; do
+            test ! -e "$path"
           done
